@@ -117,11 +117,21 @@ async function vote(team) {
     try {
       const token = await createIdToken();
 
-      /*
-       * ++++ YOUR CODE HERE ++++
-       */
-      window.alert(`Not implemented yet!`);
+      const response = await fetch('https://tabs-vs-spaces-33555517496.us-central1.run.app', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Bearer ${token}`
+        },
+        body: new URLSearchParams({ team })
+      });
 
+      if (response.ok) {
+        window.alert('vote submitted');
+        window.location.reload();
+      } else {
+        console.log(`vote failed`);
+      }
     } catch (err) {
       console.log(`Error when submitting vote: ${err}`);
       window.alert('Something went wrong... Please try again!');
